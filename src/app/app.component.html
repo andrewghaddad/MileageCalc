@@ -1,0 +1,41 @@
+<div class="container">
+  <h2>Submit Mileage</h2>
+  <form>
+    <div class="form-group">
+      <label for="mileage">Mileage</label>
+      <input type="number" class="form-control" id="mileage" placeholder="Enter Mileage" [(ngModel)]="formData.mileage" name="mileage" required>
+    </div>
+    <div class="form-group">
+      <label for="date">Date</label>
+      <div class="input-group">
+        <input
+          class="form-control"
+          placeholder="dd/mm/yyyy"
+          name="d2"
+          #c2="ngModel"
+          [(ngModel)]="formData.model2"
+          ngbDatepicker
+          #d2="ngbDatepicker"
+          required
+        />
+        <button class="btn btn-outline-secondary" (click)="d2.toggle()" type="button">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar3" viewBox="0 0 16 16">
+            <path d="M14 0H2a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2M1 3.857C1 3.384 1.448 3 2 3h12c.552 0 1 .384 1 .857v10.286c0 .473-.448.857-1 .857H2c-.552 0-1-.384-1-.857z"/>
+            <path d="M6.5 7a1 1 0 1 0 0-2 1 1 0 0 0 0 2m3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2m3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2m-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2m3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2m3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2m3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2m-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2m3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2m3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2"/>
+          </svg>
+        </button>
+        <div style="padding-left: 10px;"></div>
+        <button class="btn btn-sm btn-outline-primary" (click)="formData.model2 = today">Select Today</button>
+      </div>
+    </div>
+    <button type="submit" class="btn btn-primary" (click)="submitForm()">Submit</button>
+  </form>
+</div>
+<div class="container">
+  <h2>Missing Dates</h2>
+  <h5>Dates where end mileage was not reported. Please submit dates with end mileage for accurate calculations.</h5>
+</div>
+<div class="container">
+  <h2>Total Mileage</h2>
+  <h5>Miles you have driven for the year.</h5>
+</div>
