@@ -22,6 +22,7 @@ export class DataService {
 
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': 'https://us-east-1.aws.data.mongodb-api.com',
       'api-key': environment.apiKey,
       'Accept': 'application/json'
     });
@@ -34,6 +35,7 @@ export class DataService {
 
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': 'https://us-east-1.aws.data.mongodb-api.com',
       'api-key': environment.apiKey,
       'Accept': 'application/json'
     });
@@ -54,6 +56,7 @@ export class DataService {
 
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': 'https://us-east-1.aws.data.mongodb-api.com',
       'api-key': environment.apiKey,
       'Accept': 'application/json'
     });
