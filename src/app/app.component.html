@@ -1,16 +1,19 @@
-<div class="container">
+<nav class="navbar navbar-light bg-dark">
+  <span class="navbar-brand mb-0 h1 text-light px-5">MileageCalc</span>
+</nav>
+<div class="container py-3">
   <h2>Submit Mileage</h2>
   <form>
-    <div class="form-group">
+    <div class="form-group py-1">
       <label for="mileage">Mileage</label>
       <input type="number" class="form-control" id="mileage" placeholder="Enter Mileage" [(ngModel)]="formData.mileage" name="mileage" required>
     </div>
-    <div class="form-group">
+    <div class="form-group py-1">
       <label for="date">Date</label>
       <div class="input-group">
         <input
           class="form-control"
-          placeholder="dd/mm/yyyy"
+          placeholder="yyyy-mm-dd"
           name="d2"
           #c2="ngModel"
           [(ngModel)]="formData.model2"
@@ -28,14 +31,38 @@
         <button class="btn btn-sm btn-outline-primary" (click)="formData.model2 = today">Select Today</button>
       </div>
     </div>
-    <button type="submit" class="btn btn-primary" (click)="submitForm()">Submit</button>
+    <div *ngIf="this.errorMessage == true" class="alert alert-danger" role="alert">
+      Please enter mileage greater than previously logged value: {{this.lastMileage}}.
+    </div>
+    <div class="py-1">
+      <button type="submit" class="btn btn-primary" (click)="submitForm()">Submit</button>
+    </div>
   </form>
 </div>
-<div class="container">
+<div class="container py-3">
   <h2>Missing Dates</h2>
   <h5>Dates where end mileage was not reported. Please submit dates with end mileage for accurate calculations.</h5>
+  <div>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">Date</th>
+          <th scope="col"> Start Miles</th>
+          <th scope="col"> End Miles</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr *ngFor="let item of missingData">
+              <td>{{item._date}}</td>
+              <td>{{item._milesStart}}</td>
+              <td>{{item._milesEnd}}</td>
+          </tr>
+      </tbody>
+    </table>
+  </div>
 </div>
 <div class="container">
   <h2>Total Mileage</h2>
   <h5>Miles you have driven for the year.</h5>
+  <h3>{{this.totalMiles}} Miles</h3>
 </div>

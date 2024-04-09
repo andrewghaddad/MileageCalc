@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "MilageCalc": {
+    "MileageCalc": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/milage-calc",
+            "outputPath": "dist/mileage-calc",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
@@ -73,10 +73,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "MilageCalc:build:production"
+              "buildTarget": "MileageCalc:build:production"
             },
             "development": {
-              "buildTarget": "MilageCalc:build:development"
+              "buildTarget": "MileageCalc:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -84,7 +84,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "buildTarget": "MilageCalc:build"
+            "buildTarget": "MileageCalc:build"
           }
         },
         "test": {

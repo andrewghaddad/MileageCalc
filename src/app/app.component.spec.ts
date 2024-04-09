@@ -14,16 +14,16 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have the 'MilageCalc' title`, () => {
+  it(`should have the 'MileageCalc' title`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('MilageCalc');
+    expect(app.title).toEqual('MileageCalc');
   });
 
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, MilageCalc');
+    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, MileageCalc');
   });
 });

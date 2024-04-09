@@ -1,5 +1,5 @@
 {
-  "name": "milage-calc",
+  "name": "mileage-calc",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
@@ -7,7 +7,7 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "serve:ssr:MilageCalc": "node dist/milage-calc/server/server.mjs"
+    "serve:ssr:MileageCalc": "node dist/mileage-calc/server/server.mjs"
   },
   "private": true,
   "dependencies": {

@@ -1,65 +1,134 @@
-import { Component, Injectable } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
+import { DataService } from "./services/data.service";
 import {
 	NgbCalendar,
 	NgbDateAdapter,
-	NgbDateParserFormatter,
 	NgbDatepickerModule,
-	NgbDateStruct,
 } from '@ng-bootstrap/ng-bootstrap';
+import { Utils } from "./utils/utils";
 import { FormsModule } from '@angular/forms';
-import { JsonPipe } from '@angular/common';
+import { CommonModule, JsonPipe } from '@angular/common';
+import { CalcService } from './services/calc.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
   standalone: true,
-  providers: [FormsModule],
-  imports: [FormsModule, NgbDatepickerModule, FormsModule, JsonPipe]
+  providers: [FormsModule, Utils],
+  imports: [FormsModule, NgbDatepickerModule, FormsModule, CommonModule, JsonPipe]
 
 })
 
 export class AppComponent  {
   title = "MileageCalc";
   model1!: string;
-  
+  totalMiles!: number;
+  data: any;
+
   formData = {
     model2: '',
-    mileage: 0,
+    mileage: undefined,
   };
+  lastMileage!: number;
+  errorMessage: boolean = false;
+  missingData: any;
 
   constructor(
 		private ngbCalendar: NgbCalendar,
 		private dateAdapter: NgbDateAdapter<string>,
+    private dataService: DataService,
+    private calcService: CalcService,
+    public utils: Utils,
+    private cdr: ChangeDetectorRef
+
 	) {}
+
+  ngOnInit() {
+    this.dataService.data().subscribe(
+      (response: any) => {
+        console.log('POST request successful:', response);
+        if(response) {
+          this.calcService.setData(response.documents);
+          this.data = response.documents;
+          this.update();
+        }
+      },
+      error => {
+        console.error('Error making POST request:', error);
+      }
+    );
+  }
 
 	get today() {
 		return this.dateAdapter.toModel(this.ngbCalendar.getToday())!;
 	}
 
   submitForm() {
-    console.log(this.formData);
+    console.log('Form Data: ', this.formData);
+    
+    try {
+      let missingDate = this.missingDate(this.utils.formatDate(this.formData.model2));
+    
+      if (this.formData.mileage == undefined) {
+        this.errorMessage = true;
 
-    // IF miles > most recent mileage -> submit
-    // ELSE -> error message
+      } else if (missingDate.length <= 0 && this.formData.mileage < this.lastMileage -1) {
+        this.errorMessage = true;
 
-    // IF date already exist in DB -> update end miles
-    // ELSE -> calls api to insert data & updates start miles
+      } else if (missingDate.length > 0) {
+        this.errorMessage = false;
+
+        this.dataService.update({
+          "filter": { "$and" : [{ "_date": '2024-04-09'},{ "_milesEnd": 0}]},
+          "update": { "$set": { "_milesEnd": this.formData.mileage } }
+        }).subscribe(
+          (response: any) => {
+            console.log('UPDATE request successful:', response);
+            this.update();
+            this.cdr.detectChanges();
+          },
+          error => {
+            console.error('Error making UPDATE request:', error);
+          }
+        );
+
+      } else {
+        this.errorMessage = false;
+
+        this.dataService.insert({
+          '_milesStart': this.formData.mileage,
+          '_milesEnd': 0,
+          '_logTime': 'S',
+          '_date': this.utils.formatDate(this.formData.model2)
+        }).subscribe(
+          (response: any) => {
+            console.log('INSERT request successful:', response);
+            this.update();
+          },
+          error => {
+            console.error('Error making INSERT request:', error);
+          }
+        );
+      }
+    } catch (error) {
+      console.error('[submitForm] ERROR:', error);
+    } finally {
+      location.reload();
+    }
   }
 
-  mostRecentMileage() {
-    // Returns value of most recent mileage
+  private update() : void {
+    this.missingData = this.calcService.missing
+    this.totalMiles = this.calcService.miles;
+    this.lastMileage = this.calcService.lastMileage;
+
+    console.log('Missing Data: ' , this.missingData);
+    console.log('Total Miles: ' , this.totalMiles);
+    console.log('Last Mileage: ' , this.lastMileage);
   }
 
-  missingDates() {
-    // Returns all dates where end mileage are missing 
-  }
-
-  mileage() {
-    // Returns all data where start and end miles not 0 
-
-    // FOR EACH item IN data: subtract end FROM start 
-
-    // takes difference and adds it to local variable
+  public missingDate(date: string | null) : any {
+    return this.calcService.missing.filter((doc: any) => doc._date == date);
   }
 }
