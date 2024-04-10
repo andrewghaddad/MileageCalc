@@ -13,7 +13,7 @@ const api = express();
 api.use(cors(corsOptions))
 
 const router = Router();
-router.post('/api/data', async (req, res) => {
+router.post('/data', async (req, res) => {
     try {
         const requestData = req;
         const headers  = {

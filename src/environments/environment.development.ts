@@ -1,6 +1,6 @@
 export const environment = {
     baseUrl: 'https://us-east-1.aws.data.mongodb-api.com/app/data-ihtif/endpoint/data/v1',
-    baseUrlV2: 'https://mileagecalc.netlify.app',
+    baseUrlV2: 'https://mileagecalc.netlify.app/api',
     collection: "Dev",
     database: "Mileage",
     dataSource: "Custer0",
