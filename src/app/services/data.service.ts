@@ -20,14 +20,14 @@ export class DataService {
       "dataSource": environment.dataSource,
     }
 
-    // const headers = new HttpHeaders({
-    //   'Content-Type': 'application/json',
-    //   'Access-Control-Allow-Origin': 'https://mileagecalc.netlify.app',
-    //   'api-key': environment.apiKey,
-    //   'Accept': 'application/json'
-    // });
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': 'https://mileagecalc.netlify.app',
+      'api-key': environment.apiKey,
+      'Accept': 'application/json'
+    });
 
-    return this.http.post<any>(url, requestBody);
+    return this.http.post<any>(url, requestBody, { headers });
   }
 
   update(req: any) {
