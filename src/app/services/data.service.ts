@@ -12,7 +12,7 @@ export class DataService {
   constructor(private http: HttpClient) { }
 
   data(): Observable<any> {
-    const url = environment.baseUrlV2;
+    const url = environment.baseUrlV2 + '/api/data';
     
     let requestBody: any = {
       "collection": environment.collection,
@@ -20,14 +20,14 @@ export class DataService {
       "dataSource": environment.dataSource,
     }
 
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Access-Control-Allow-Origin': 'http://common-services-26irurkwt-andrews-projects-22fa37f5.vercel.app/mileageCalc/data',
-      'api-key': environment.apiKey,
-      'Accept': 'application/json'
-    });
+    // const headers = new HttpHeaders({
+    //   'Content-Type': 'application/json',
+    //   'Access-Control-Allow-Origin': 'https://mileagecalc.netlify.app',
+    //   'api-key': environment.apiKey,
+    //   'Accept': 'application/json'
+    // });
 
-    return this.http.post<any>(url, requestBody, { headers });
+    return this.http.post<any>(url, requestBody);
   }
 
   update(req: any) {
