@@ -1,8 +1,8 @@
-import express, { Router } from "express";
-import serverless from "serverless-http";
-import axios from 'axios';
-import cors from 'cors';
-import config from "./config";
+const express = require('express');
+const serverless = require('serverless-http')
+const cors = require('cors');
+const axios = require('axios');
+const config = require('./config');
 
 const corsOptions = {
     origin: config.ORIGIN_DOMAIN,
@@ -12,7 +12,7 @@ const corsOptions = {
 const api = express();
 api.use(cors(corsOptions))
 
-const router = Router();
+const router = express.Router();
 router.post('/data', async (req, res) => {
     try {
         const requestData = req;
@@ -34,4 +34,11 @@ router.post('/data', async (req, res) => {
 
 api.use("/api/", router);
 
-export const handler = serverless(api);
+const handler = serverless(api);
+
+const PORT = process.env.PORT || 3000;
+api.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
+});
+
+module.exports = { handler };
