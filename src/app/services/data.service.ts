@@ -12,7 +12,7 @@ export class DataService {
   constructor(private http: HttpClient) { }
 
   data(): Observable<any> {
-    const url = environment.baseUrl + '/action/find';
+    const url = environment.baseUrlV2 + '/action/find';
     
     let requestBody: any = {
       "collection": environment.collection,
@@ -22,7 +22,7 @@ export class DataService {
 
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
-      'Access-Control-Allow-Origin': 'https://us-east-1.aws.data.mongodb-api.com',
+      'Access-Control-Allow-Origin': 'http://common-services-26irurkwt-andrews-projects-22fa37f5.vercel.app/mileageCalc/data',
       'api-key': environment.apiKey,
       'Accept': 'application/json'
     });
