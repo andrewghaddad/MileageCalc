@@ -1,19 +1,26 @@
-const axios = require('axios');
 const config = require('../../../config');
+const { MongoClient } = require('mongodb');
+
+const uri = config.URI;
+const dbName = 'Mileage';
+const client = new MongoClient(uri);
 
 const handler = async (req) => {
   try {
-    const requestData = req.body;
-    const headers  = {
-        'Content-Type': 'application/json',
-        'api-key': config.API_KEY,
-        'Accept': 'application/json'
-    }
-    const response = await axios.post(config.BASE_URL + '/action/find', requestData , { headers });
-    const documents = response.data.documents;
+    await client.connect();
+    console.log('Connected successfully to server');
+
+    const db = client.db(dbName);
+    const collection = db.collection('Dev');
+
+    // Find all documents
+    const docs = await collection.find({}).toArray();
+
+    console.log('Found the following documents:');
+    console.log(docs);
     return {
       statusCode: 200,
-      body: JSON.stringify({ documents }),
+      body: JSON.stringify({ docs }),
     }
   } catch (error) {
     return { statusCode: 500, body: error.toString() }
