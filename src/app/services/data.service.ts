@@ -12,7 +12,7 @@ export class DataService {
   constructor(private http: HttpClient) { }
 
   data(): Observable<any> {
-    const url = environment.baseUrlV2 + '/data';
+    const url = environment.baseUrlV2;
     
     let requestBody: any = {
       "collection": environment.collection,
