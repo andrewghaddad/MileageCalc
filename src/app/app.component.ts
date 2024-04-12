@@ -47,7 +47,7 @@ export class AppComponent  {
   ngOnInit() {
     this.dataService.data().subscribe(
       (response: any) => {
-        console.log('POST request successful:', response);
+        console.log('GET request successful:', response);
         if(response) {
           this.calcService.setData(response.documents);
           this.data = response.documents;
@@ -55,7 +55,7 @@ export class AppComponent  {
         }
       },
       error => {
-        console.error('Error making POST request:', error);
+        console.error('Error making GET request:', error);
       }
     );
   }
