@@ -13,21 +13,14 @@ export class DataService {
 
   data(): Observable<any> {
     const url = environment.baseUrlV2;
-    
-    let requestBody: any = {
-      "collection": environment.collection,
-      "database": environment.database,
-      "dataSource": environment.dataSource,
-    }
 
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
-      'Access-Control-Allow-Origin': 'https://mileagecalc.netlify.app',
-      'api-key': environment.apiKey,
+      'Access-Control-Allow-Origin': 'https://commonservices.onrender.com',
       'Accept': 'application/json'
     });
 
-    return this.http.post<any>(url, requestBody, { headers });
+    return this.http.get<any>(url, { headers });
   }
 
   update(req: any) {
