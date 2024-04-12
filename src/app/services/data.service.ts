@@ -12,7 +12,7 @@ export class DataService {
   constructor(private http: HttpClient) { }
 
   data(): Observable<any> {
-    const url = environment.baseUrlV2;
+    const url = environment.baseUrlV2 + "/mileageCalc/data";
 
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
