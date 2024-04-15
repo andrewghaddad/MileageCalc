@@ -84,6 +84,7 @@ export class AppComponent  {
           (response: any) => {
             console.log('UPDATE request successful:', response);
             this.update();
+            location.reload();
           },
           error => {
             console.error('Error making UPDATE request:', error);
@@ -102,6 +103,7 @@ export class AppComponent  {
           (response: any) => {
             console.log('INSERT request successful:', response);
             this.update();
+            location.reload();
           },
           error => {
             console.error('Error making INSERT request:', error);
@@ -110,9 +112,7 @@ export class AppComponent  {
       }
     } catch (error) {
       console.error('[submitForm] ERROR:', error);
-    } finally {
-      location.reload();
-    }
+    } 
   }
 
   private update() : void {
