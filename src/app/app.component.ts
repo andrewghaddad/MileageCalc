@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component } from '@angular/core';
+import { Component } from '@angular/core';
 import { DataService } from "./services/data.service";
 import {
 	NgbCalendar,
@@ -40,8 +40,6 @@ export class AppComponent  {
     private dataService: DataService,
     private calcService: CalcService,
     public utils: Utils,
-    private cdr: ChangeDetectorRef
-
 	) {}
 
   ngOnInit() {
@@ -80,13 +78,12 @@ export class AppComponent  {
         this.errorMessage = false;
 
         this.dataService.update({
-          "filter": { "$and" : [{ "_date": '2024-04-09'},{ "_milesEnd": 0}]},
+          "filter": { "$and" : [{ "_date": this.utils.formatDate(this.formData.mileage)},{ "_milesEnd": 0}]},
           "update": { "$set": { "_milesEnd": this.formData.mileage } }
         }).subscribe(
           (response: any) => {
             console.log('UPDATE request successful:', response);
             this.update();
-            this.cdr.detectChanges();
           },
           error => {
             console.error('Error making UPDATE request:', error);
