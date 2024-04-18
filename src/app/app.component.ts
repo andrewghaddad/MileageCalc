@@ -78,8 +78,8 @@ export class AppComponent  {
         this.errorMessage = false;
 
         this.dataService.update({
-          "filter": { "$and" : [{ "_date": this.utils.formatDate(this.formData.mileage)},{ "_milesEnd": 0}]},
-          "update": { "$set": { "_milesEnd": this.formData.mileage } }
+          "filter": { "$and": [{ "_date": this.utils.formatDate(this.formData.mileage)}, {"_milesEnd": 0}]},
+          "update": {"$set": {"_milesEnd": this.formData.mileage}}
         }).subscribe(
           (response: any) => {
             console.log('UPDATE request successful:', response);
