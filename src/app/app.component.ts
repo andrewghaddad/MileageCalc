@@ -78,7 +78,7 @@ export class AppComponent  {
         this.errorMessage = false;
 
         this.dataService.update({
-          "filter": { "$and": [{ "_date": this.utils.formatDate(this.formData.mileage)}, {"_milesEnd": 0}]},
+          "filter": { "$and": [{ "_date": this.utils.formatDate(this.formData.model2)}, {"_milesEnd": 0}]},
           "update": {"$set": {"_milesEnd": this.formData.mileage}}
         }).subscribe(
           (response: any) => {
